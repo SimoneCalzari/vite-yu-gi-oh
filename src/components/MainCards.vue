@@ -6,6 +6,7 @@ export default {
   created() {
     axios.get(this.urlApi).then((response) => {
       store.cardsList = response.data.data;
+      store.isLoaded = true;
     });
   },
   components: {
@@ -14,7 +15,7 @@ export default {
   data() {
     return {
       store,
-      urlApi: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=30&offset=0",
+      urlApi: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=150&offset=0",
     };
   },
 };
