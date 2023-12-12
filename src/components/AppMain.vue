@@ -1,10 +1,12 @@
 <script>
 import MainCards from "./MainCards.vue";
 import MainCardsCount from "./MainCardsCount.vue";
+import MainSelect from "./MainSelect.vue";
 export default {
   components: {
     MainCards,
     MainCardsCount,
+    MainSelect,
   },
 };
 </script>
@@ -12,6 +14,9 @@ export default {
 <template>
   <main>
     <div class="container">
+      <div class="cards-selectp">
+        <MainSelect />
+      </div>
       <div class="cards-list">
         <MainCardsCount />
         <MainCards />
