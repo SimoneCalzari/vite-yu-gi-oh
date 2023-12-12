@@ -9,7 +9,7 @@ export default {};
 <style scoped lang="scss">
 @use "../assets/scss/partials/variables" as *;
 h1 {
-  font-size: 30px;
+  font-size: 34px;
   color: $counter-color;
   margin-left: 20px;
 }
