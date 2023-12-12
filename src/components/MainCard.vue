@@ -1,7 +1,9 @@
 <script>
+import { store } from "../store";
 export default {
   props: {
     card: Object,
+    index: Number,
   },
   methods: {
     getImgUrl() {
@@ -16,13 +18,23 @@ export default {
       }
       return this.card.race;
     },
+    lastImgLoaded() {
+      if (this.index === store.cardsList.length - 1) {
+        store.isLoaded = true;
+      }
+    },
+  },
+  data() {
+    return {
+      store,
+    };
   },
 };
 </script>
 
 <template>
   <div class="card">
-    <img :src="getImgUrl()" :alt="getCardName()" />
+    <img :src="getImgUrl()" :alt="getCardName()" @load="lastImgLoaded()" />
     <h4 class="upper">{{ getCardName() }}</h4>
     <h5>{{ getCardType() }}</h5>
   </div>

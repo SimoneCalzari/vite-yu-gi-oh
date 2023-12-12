@@ -38,6 +38,7 @@ export default {
 @use "../assets/scss/partials/variables" as *;
 main {
   background-color: $main-color;
+  padding-bottom: 50px;
   .cards-list {
     padding: 50px;
     background-color: $header-color;
