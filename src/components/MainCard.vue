@@ -1,34 +1,28 @@
 <script>
-import { store } from "../store";
 export default {
   props: {
-    indexCard: Number,
+    card: Object,
   },
   methods: {
     getImgUrl() {
-      return store.cardsList[this.indexCard].card_images[0].image_url;
+      return this.card.card_images[0].image_url;
     },
     getCardName() {
-      return store.cardsList[this.indexCard].name;
+      return this.card.name;
     },
     getCardType() {
-      if (store.cardsList[this.indexCard].hasOwnProperty("archetype")) {
-        return store.cardsList[this.indexCard].archetype;
+      if (this.card.hasOwnProperty("archetype")) {
+        return this.card.archetype;
       }
-      return store.cardsList[this.indexCard].race;
+      return this.card.race;
     },
-  },
-  data() {
-    return {
-      store,
-    };
   },
 };
 </script>
 
 <template>
   <div class="card">
-    <img :src="getImgUrl()" alt="" />
+    <img :src="getImgUrl()" :alt="getCardName()" />
     <h4 class="upper">{{ getCardName() }}</h4>
     <h5>{{ getCardType() }}</h5>
   </div>

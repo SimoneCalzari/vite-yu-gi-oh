@@ -6,7 +6,9 @@ export default {
   created() {
     axios.get(this.urlApi).then((response) => {
       store.cardsList = response.data.data;
-      store.isLoaded = true;
+      setTimeout(() => {
+        store.isLoaded = true;
+      }, 2000);
     });
   },
   components: {
@@ -15,7 +17,7 @@ export default {
   data() {
     return {
       store,
-      urlApi: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=150&offset=0",
+      urlApi: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=50&offset=0",
     };
   },
 };
@@ -23,7 +25,7 @@ export default {
 
 <template>
   <div class="cards flex">
-    <MainCard v-for="(card, index) in store.cardsList" :indexCard="index" />
+    <MainCard v-for="card in store.cardsList" :card="card" />
   </div>
 </template>
 
