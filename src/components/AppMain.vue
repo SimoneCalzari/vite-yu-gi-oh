@@ -18,35 +18,54 @@ export default {
     };
   },
   methods: {
-    typeSearch() {},
+    // METODO MIO PER GENERARE URL API E GESTIRE CASO CON ARCHETYPE DEFAULT VUOTO ""
+    urlWithQuery() {
+      const queryNum = `?num=${this.store.num}`;
+      const queryOff = `&offset=${this.store.offset}`;
+      const queryType = `&archetype=${this.store.currentArchetype}`;
+      if (this.store.currentArchetype === "") {
+        return this.store.urlApi + queryNum + queryOff;
+      }
+      return this.store.urlApi + queryNum + queryOff + queryType;
+    },
     typeSearch() {
       this.store.isLoaded = false;
-      axios
-        .get(this.store.urlApi, {
-          params: {
-            // num: this.store.num,
-            // offset: this.store.offset,
-            // santo axios mi cancella i query vuoti altrimenti questa api yugioh darebbe errore :)
-            archetype: this.store.currentArchetype,
-          },
-        })
-        .then((response) => {
-          this.store.cardsList = response.data.data;
-        });
+      // GESTIONE QUERY PARAMETERS CON MIO METODO
+      axios.get(this.urlWithQuery()).then((response) => {
+        this.store.cardsList = response.data.data;
+      });
+      // GESTIONE QUERY PARAMETERS CON AXIOS
+      // axios
+      //   .get(this.store.urlApi, {
+      //     params: {
+      //       num: this.store.num,
+      //       offset: this.store.offset,
+      //       archetype: this.store.currentArchetype,
+      //     },
+      //   })
+      //   .then((response) => {
+      //     this.store.cardsList = response.data.data;
+      //   });
     },
   },
   created() {
-    axios
-      .get(this.store.urlApi, {
-        params: {
-          num: this.store.num,
-          offset: this.store.offset,
-          // archetype: this.store.currentArchetype,
-        },
-      })
-      .then((response) => {
-        this.store.cardsList = response.data.data;
-      });
+    // PRIMA CHIAMATA AL LOAD CON GESTIONE QUERY MIA
+    axios.get(this.urlWithQuery()).then((response) => {
+      this.store.cardsList = response.data.data;
+    });
+
+    // PRIMA CHIAMATA AL LOAD CON GESTIONE QUERY AXIOS
+    // axios
+    //   .get(this.store.urlApi, {
+    //     params: {
+    //       num: this.store.num,
+    //       offset: this.store.offset,
+    //       archetype: this.store.currentArchetype,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     this.store.cardsList = response.data.data;
+    //   });
   },
 };
 </script>
