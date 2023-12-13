@@ -6,6 +6,11 @@ export default {
     AppHeader,
     AppMain,
   },
+  methods: {
+    ciaoBello() {
+      console.log("cazzoooo");
+    },
+  },
 };
 </script>
 

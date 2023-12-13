@@ -13,14 +13,11 @@ export default {
       return this.card.name;
     },
     getCardType() {
-      if (this.card.hasOwnProperty("archetype")) {
-        return this.card.archetype;
-      }
-      return this.card.race;
+      return this.card.archetype;
     },
     lastImgLoaded() {
       if (this.index === store.cardsList.length - 1) {
-        store.isLoaded = true;
+        this.store.isLoaded = true;
       }
     },
   },

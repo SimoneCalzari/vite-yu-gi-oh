@@ -4,6 +4,7 @@ import MainCards from "./MainCards.vue";
 import MainCardsCount from "./MainCardsCount.vue";
 import MainSelect from "./MainSelect.vue";
 import { store } from "../store";
+import axios from "axios";
 export default {
   components: {
     MainLoader,
@@ -16,6 +17,37 @@ export default {
       store,
     };
   },
+  methods: {
+    typeSearch() {},
+    typeSearch() {
+      this.store.isLoaded = false;
+      axios
+        .get(this.store.urlApi, {
+          params: {
+            // num: this.store.num,
+            // offset: this.store.offset,
+            // santo axios mi cancella i query vuoti altrimenti questa api yugioh darebbe errore :)
+            archetype: this.store.currentArchetype,
+          },
+        })
+        .then((response) => {
+          this.store.cardsList = response.data.data;
+        });
+    },
+  },
+  created() {
+    axios
+      .get(this.store.urlApi, {
+        params: {
+          num: this.store.num,
+          offset: this.store.offset,
+          // archetype: this.store.currentArchetype,
+        },
+      })
+      .then((response) => {
+        this.store.cardsList = response.data.data;
+      });
+  },
 };
 </script>
 
@@ -23,7 +55,7 @@ export default {
   <main>
     <div class="container">
       <div class="cards-select">
-        <MainSelect />
+        <MainSelect @filter="typeSearch" />
       </div>
       <div class="cards-list">
         <MainLoader v-show="!store.isLoaded" />
